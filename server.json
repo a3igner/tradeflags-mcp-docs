@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.tradeflags/mcp",
+  "title": "TradeFlags MCP",
+  "description": "Authenticated market data for Hong Kong and US equities \u2014 breadth and signals, volatility surfaces, index term structure, sentiment, the company network, and on-demand OTC derivative pricing.",
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.tradeflags.com/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "TradeFlags API key as 'Bearer tf_live_<key>'. Get one from your account dashboard at https://tradeflags.com.",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "repository": {
+    "url": "https://github.com/a3igner/tradeflags-mcp-docs",
+    "source": "github"
+  }
+}

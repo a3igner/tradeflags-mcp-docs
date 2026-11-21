@@ -1,0 +1,21 @@
+# Smithery configuration for the hosted TradeFlags MCP server.
+# Remote-URL publish path: https://smithery.ai/new (or
+# `smithery mcp publish "https://api.tradeflags.com/mcp" -n a3igner/tradeflags`).
+# This file documents the config schema; the remote path supplies it inline.
+startCommand:
+  type: http
+  url: https://api.tradeflags.com/mcp
+configSchema:
+  type: object
+  required:
+    - apiKey
+  properties:
+    apiKey:
+      type: string
+      title: TradeFlags API Key
+      description: "Bearer token from your TradeFlags account dashboard (https://tradeflags.com)."
+      x-from:
+        header: Authorization
+        value: "Bearer {{apiKey}}"
+exampleConfig:
+  apiKey: tf_live_your_api_key_here
