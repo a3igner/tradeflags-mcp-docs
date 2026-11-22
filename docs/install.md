@@ -6,6 +6,10 @@ with `Authorization: Bearer tf_live_<your-key>`.
 Get a key: sign in at https://tradeflags.com, open your dashboard, issue a key.
 The Free tier is 1,000 calls/month.
 
+OAuth sign-in is also supported for MCP directories (Claude Desktop, ChatGPT):
+their "Connect" flow uses `https://api.tradeflags.com/.well-known/oauth-authorization-server`
+and signs you in with Google/Apple/email — no API key needed for those clients.
+
 ## Claude Code
 
 Option A — CLI:

@@ -35,6 +35,13 @@ Authenticate with your API key:
 Authorization: Bearer tf_live_<your-key>
 ```
 
+OAuth sign-in is also available for MCP directories (Claude Desktop, ChatGPT):
+their "Connect" flow uses the RFC 9728 discovery endpoints below and signs you
+in with Google/Apple/email — no API key needed for those clients.
+
+- `https://api.tradeflags.com/.well-known/oauth-protected-resource`
+- `https://api.tradeflags.com/.well-known/oauth-authorization-server`
+
 ### Claude Code
 
 `claude mcp add tradeflags --transport http --url https://api.tradeflags.com/mcp --header "Authorization: Bearer tf_live_YOUR_KEY"`
