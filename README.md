@@ -1,5 +1,7 @@
 # TradeFlags MCP
 
+[![TradeFlags MCP MCP connector – tool definition quality and endpoint health on Glama](https://glama.ai/mcp/connectors/com.tradeflags.api/trade-flags-mcp/badges/score.svg)](https://glama.ai/mcp/connectors/com.tradeflags.api/trade-flags-mcp)
+
 Authenticated market data for Hong Kong and US equities, delivered over the
 Model Context Protocol — one streamable-HTTP endpoint, installable in Claude
 Code, Hermes, and any MCP-capable agent.
