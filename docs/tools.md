@@ -73,7 +73,7 @@ Every tool is read-only and returns an `as_of` timestamp.
 - **td_sequential__signals** — Tom DeMark sequential buy/sell setups across the HK market: direction, signal type, setup phase, qualifier/perfection counts and TDST levels, with traded size. Includes buy-setup and exhaustion variants.
 
 ## tfx-index
-- **tfx__composite** — The HK cross-asset risk composite over volatility, credit and FX, with a z-score and a market-phase band.
+- **cross_asset_risk__composite** — The HK cross-asset risk composite over volatility, credit and FX, with a z-score and a market-phase band.
 
 ## universe-indicators
 - **universe_indicators__daily** — The per-stock universal indicator: a daily composite across the signal sources, with the source count and weights used, across the full HK universe.
