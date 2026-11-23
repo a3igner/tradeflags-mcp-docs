@@ -15,8 +15,19 @@ timestamped; every tool states its units and the session it describes.
 |:---:|:---:|
 | ![Homepage](images/homepage.png) | ![VIX term structure](images/vix-term-structure.png) |
 | *The dashboard — breadth, volatility, sentiment and network panels, one per series.* | *VIX/VIX3M ratio with the 100-day mean and ±1σ bands.* |
-| ![Breadth](images/breadth.png) | ![Company network](images/company-network.png) |
-| *Golden/Death-cross breadth with the trend band.* | *The supply-chain network model: nodes, edges and shock scenarios.* |
+| ![Moirai forecast](images/moirai-forecast.png) | ![Company network](images/company-network.png) |
+| *Moirai-2.0-R-small forecasts — strategy baskets and daily average.* | *The supply-chain network model: nodes, edges and shock scenarios.* |
+
+## AI forecasting — Moirai (live model)
+
+A Moirai-2.0-R-small time-series model runs on a schedule and publishes daily
+distribution forecasts for the Hong Kong index — direction, P(Up), confidence
+and a ±1σ band (equal- and cap-weighted) — plus a stock-selection basket.
+Every forecast is scored nightly against realised outcomes, and the cumulative
+track record ships with the forecast. This is a live, scored model, not a
+demo.
+
+![Moirai fan chart](images/moirai-fan-chart.png)
 
 ## What it serves
 
@@ -25,7 +36,7 @@ timestamped; every tool states its units and the session it describes.
 - **Breadth & signals** — TRIN/Arms Index, McClellan, RASI, Hi-Lo, power ratio, TD Sequential, Parabolic SAR, Hindenburg Omen, signal outcomes.
 - **Volatility** — SVI-fitted volatility surfaces (index and per-stock), term structure, 25Δ skew, VHSI/VIX levels.
 - **Macro & sentiment** — ADS Business Conditions Index, CRANE-X sentiment, VIX term structure, HKMA curve.
-- **Forecasts** — Moirai HK index distribution forecasts.
+- **AI forecasting** — Moirai-2.0-R-small time-series model, live and nightly-scored: HK index distribution forecasts, P(Up), confidence, ±1σ band, and stock-selection baskets.
 - **Company network** — nodes, edges, and what-if shock scenarios.
 - **On-demand pricing** — accumulator and OTC equity-derivative pricing with NPV and Greeks, computed live.
 
