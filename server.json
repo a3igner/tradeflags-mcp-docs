@@ -1,6 +1,6 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "com.tradeflags.api/mcp",
+  "name": "com.tradeflags.api/trade-flags-mcp",
   "title": "TradeFlags MCP",
   "description": "Authenticated market data for HK and US equities \u2014 breadth, signals, vol surfaces, and OTC pricing.",
   "version": "1.0.0",
