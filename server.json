@@ -1,8 +1,8 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.tradeflags.api/trade-flags-mcp",
-  "title": "TradeFlags MCP",
-  "description": "Authenticated market data for HK and US equities \u2014 breadth, signals, vol surfaces, and OTC pricing.",
+  "title": "TradeFlags — HK & US Market Data: Breadth, Volatility & Accumulator Pricing",
+  "description": "Read-only market data for Hong Kong and US equities: breadth indicators, volatility surfaces, option skew, sentiment and on-demand accumulator/OTC pricing.",
   "version": "1.0.0",
   "remotes": [
     {
