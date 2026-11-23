@@ -1,23 +1,44 @@
-# TradeFlags MCP
+# TradeFlags — HK stocks & US stocks: Breadth, Volatility & Accumulator Pricing
 
-[![TradeFlags MCP MCP connector – tool definition quality and endpoint health on Glama](https://glama.ai/mcp/connectors/com.tradeflags.api/trade-flags-mcp/badges/score.svg)](https://glama.ai/mcp/connectors/com.tradeflags.api/trade-flags-mcp)
+[![Tool definition quality and endpoint health on Glama](https://glama.ai/mcp/connectors/com.tradeflags.api/trade-flags-mcp/badges/score.svg)](https://glama.ai/mcp/connectors/com.tradeflags.api/trade-flags-mcp)
 
-Authenticated market data for Hong Kong and US equities, delivered over the
-Model Context Protocol — one streamable-HTTP endpoint, installable in Claude
-Code, Hermes, and any MCP-capable agent.
+Read-only market data for Hong Kong and US equities, delivered over the Model
+Context Protocol — one streamable-HTTP endpoint, installable in Claude Code,
+Hermes, ChatGPT, Cursor, and any MCP-capable agent. Every response is
+timestamped; every tool states its units and the session it describes.
 
 **Operator:** AINFER Limited · Hong Kong · Business Registration No. 81518145
 
+## How it works
+
+![Architecture](images/architecture.png)
+
+Market data flows from the exchanges and licensed feeds into a nightly
+computation layer — volatility surfaces, breadth oscillators, signal models
+and a Monte-Carlo pricing engine — lands in a read-only warehouse, and is
+served through a single authenticated MCP endpoint. The site publishes the age
+of its own data, so staleness is visible on the page rather than hidden behind
+a "live" label.
+
+## What you see
+
+| | |
+|:---:|:---:|
+| ![Homepage](images/homepage.png) | ![VIX term structure](images/vix-term-structure.png) |
+| *The dashboard — breadth, volatility, sentiment and network panels, one per series.* | *VIX/VIX3M ratio with the 100-day mean and ±1σ bands.* |
+| ![Breadth](images/breadth.png) | ![Company network](images/company-network.png) |
+| *Golden/Death-cross breadth with the trend band.* | *The supply-chain network model: nodes, edges and shock scenarios.* |
+
 ## What it serves
 
-35 tools across 27 packages, all read-only and timestamped:
+37 tools across the catalogue, all read-only, idempotent and timestamped:
 
 - **Breadth & signals** — TRIN/Arms Index, McClellan, RASI, Hi-Lo, power ratio, TD Sequential, Parabolic SAR, Hindenburg Omen, signal outcomes.
-- **Volatility** — SVI-fitted volatility surfaces (HKEX/FUTU), index term structure, 25Δ skew, VHSI/VIX levels.
+- **Volatility** — SVI-fitted volatility surfaces (index and per-stock), term structure, 25Δ skew, VHSI/VIX levels.
 - **Macro & sentiment** — ADS Business Conditions Index, CRANE-X sentiment, VIX term structure, HKMA curve.
-- **Forecasts** — Moirai HK index forecasts.
-- **Company network** — nodes, edges, and scenario models.
-- **On-demand OTC pricing** — accumulator / equity-derivative pricing with NPV + greeks.
+- **Forecasts** — Moirai HK index distribution forecasts.
+- **Company network** — nodes, edges, and what-if shock scenarios.
+- **On-demand pricing** — accumulator and OTC equity-derivative pricing with NPV and Greeks, computed live.
 
 See [docs/tools.md](docs/tools.md) for the full catalogue.
 
@@ -29,22 +50,11 @@ One endpoint — streamable HTTP:
 https://api.tradeflags.com/mcp
 ```
 
-Authenticate with your API key:
-
-```
-Authorization: Bearer tf_live_<your-key>
-```
-
-OAuth sign-in is also available for MCP directories (Claude Desktop, ChatGPT):
-their "Connect" flow uses the RFC 9728 discovery endpoints below and signs you
-in with Google/Apple/email — no API key needed for those clients.
-
-- `https://api.tradeflags.com/.well-known/oauth-protected-resource`
-- `https://api.tradeflags.com/.well-known/oauth-authorization-server`
-
 ### Claude Code
 
-`claude mcp add tradeflags --transport http --url https://api.tradeflags.com/mcp --header "Authorization: Bearer tf_live_YOUR_KEY"`
+```
+claude mcp add tradeflags --transport http --url https://api.tradeflags.com/mcp --header "Authorization: Bearer ***"
+```
 
 or via `.mcp.json`:
 
@@ -72,15 +82,34 @@ mcp_servers:
       Authorization: "Bearer tf_live_YOUR_KEY"
 ```
 
+### ChatGPT / Claude Desktop (OAuth)
+
+Their "Connect" flow uses the RFC 9728 discovery endpoints and signs you in
+with Google/Apple/email — no API key needed:
+
+- `https://api.tradeflags.com/.well-known/oauth-protected-resource`
+- `https://api.tradeflags.com/.well-known/oauth-authorization-server`
+
 Full install guide: [docs/install.md](docs/install.md)
+
+## Worked example
+
+Ask your agent:
+
+> Price a ko_fixed accumulator on 0700 at 2.0x leverage.
+
+The tool solves the structure to net-zero NPV and returns spot, accrual level,
+knock-out barrier, NPV and the Greeks. Use `otc_pricing__price` when you want
+to pin the strike, barrier and base level yourself instead of letting the
+solver pick them.
 
 ## Get an API key
 
-Sign in at [tradeflags.com](https://tradeflags.com), open your account dashboard,
-and issue a key. Plans:
+Sign in at [tradeflags.com](https://tradeflags.com), open your account
+dashboard, and issue a key.
 
 | Plan | Quota |
-|------|-------|
+|---|---|
 | Free | 1,000 calls / month |
 | Pro | 200,000 calls / month |
 | Team | 2,000,000 calls / month |
@@ -88,14 +117,21 @@ and issue a key. Plans:
 
 Pricing: [tradeflags.com/pricing.php](https://tradeflags.com/pricing.php)
 
+## Why TradeFlags
+
+- **One tool per series.** Every tool's description states its units and the session it describes, so an agent knows what it is getting without a schema lookup.
+- **Validation travels with the number.** A model output that has been checked against realised outcomes carries that status; nothing is presented as a research claim without it.
+- **Read-only and timestamped.** No orders or account actions, and every response carries an `as_of` so staleness is detectable.
+
 ## Registry manifests
 
-- `server.json` — official MCP Registry manifest (namespace `com.tradeflags/mcp`).
+- `server.json` — official MCP Registry manifest (namespace `com.tradeflags.api`).
 - `smithery.yaml` — Smithery config schema.
 
 ## Documentation
 
-Full documentation lives at [tradeflags.com/docs](https://tradeflags.com/docs).
+- [tradeflags.com/docs](https://tradeflags.com/docs) — full documentation.
+- [Trust & security](https://tradeflags.com/trust.php) — data provenance, security, availability, compliance.
 
 ## Disclaimer
 
