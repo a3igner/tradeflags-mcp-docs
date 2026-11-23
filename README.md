@@ -9,17 +9,6 @@ timestamped; every tool states its units and the session it describes.
 
 **Operator:** AINFER Limited · Hong Kong · Business Registration No. 81518145
 
-## How it works
-
-![Architecture](images/architecture.png)
-
-Market data flows from the exchanges and licensed feeds into a nightly
-computation layer — volatility surfaces, breadth oscillators, signal models
-and a Monte-Carlo pricing engine — lands in a read-only warehouse, and is
-served through a single authenticated MCP endpoint. The site publishes the age
-of its own data, so staleness is visible on the page rather than hidden behind
-a "live" label.
-
 ## What you see
 
 | | |
